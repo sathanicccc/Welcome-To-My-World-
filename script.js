@@ -1,25 +1,37 @@
+const canvas = document.getElementById("raceGame");
+const ctx = canvas.getContext("2d");
 let score = 0;
-const emoji = document.getElementById('world-emoji');
-const scoreDisplay = document.getElementById('score');
+let carX = 130;
+let gameRunning = false;
 
-// Emoji-ye random position-ilekk maattan ulla function
-function moveEmoji() {
-    const x = Math.random() * (window.innerWidth - 100);
-    const y = Math.random() * (window.innerHeight - 100);
+function drawCar(x) {
+    ctx.fillStyle = "#00f3ff";
+    ctx.fillRect(x, 350, 40, 40); // User Car
+}
+
+function startGame() {
+    gameRunning = true;
+    score = 0;
+    updateGame();
+}
+
+function updateGame() {
+    if(!gameRunning) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    emoji.style.left = x + 'px';
-    emoji.style.top = y + 'px';
+    // Draw Road lines
+    ctx.strokeStyle = "white";
+    ctx.setLineDash([20, 20]);
+    ctx.beginPath();
+    ctx.moveTo(150, 0); ctx.lineTo(150, 400);
+    ctx.stroke();
+
+    drawCar(carX);
+    requestAnimationFrame(updateGame);
 }
 
-// Emoji-yil click cheyumpol score koodum, emoji move aakum
-function catchWorld() {
-    score++;
-    scoreDisplay.innerText = score;
-    moveEmoji();
-}
-
-// Oro 1.5 second-ilum emoji thaaneyum move aakum (Challenge!)
-setInterval(moveEmoji, 1500);
-
-// Game thudangumpol aadyame emoji-ye move cheyyikkuka
-moveEmoji();
+// Control
+window.addEventListener("keydown", (e) => {
+    if(e.key === "ArrowLeft" && carX > 0) carX -= 10;
+    if(e.key === "ArrowRight" && carX < 260) carX += 10;
+});
