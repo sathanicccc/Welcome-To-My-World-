@@ -3,70 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SATHANIC 2030 | ADVANCE HUB</title>
+    <title>SATHANIC_ROOT_ACCESS</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
+    <canvas id="matrix-canvas"></canvas>
+    
+    <div class="os-container">
+        <div class="top-bar">
+            <span class="title">SATHANIC OS v9.0.4 - [Root Mode]</span>
+            <span class="clock" id="clock">00:00:00</span>
+        </div>
 
-    <canvas id="matrixCanvas"></canvas>
-
-    <div class="main-wrapper">
-        <header class="cyber-header">
-            <h1 class="neon-title">SATHANIC OS V3.0</h1>
-            <div class="news-ticker">
-                <p>>>> UPDATING TERMUX MODULES... WHATSAPP BOT V5.0 ONLINE... TELEGRAM API CONNECTED... 2030 SECURED <<<</p>
+        <div class="terminal-wrapper">
+            <div id="output">
+                <span class="sys-msg">[SYSTEM] Booting Sathanic OS...</span><br>
+                <span class="sys-msg">[SYSTEM] Bypassing Firewalls... DONE</span><br>
+                <span class="sys-msg">[SYSTEM] Loading Malayalam Hacking Tutorials... DONE</span><br>
+                <br>
+                <span class="welcome-text">WELCOME TO THE UNDERGROUND, USER.</span><br>
+                <span>Type <b style="color:white">'help'</b> to see available tools & tutorials.</span><br>
             </div>
-        </header>
+            <div class="input-area">
+                <span class="prompt">root@sathanic:~#</span>
+                <input type="text" id="cmd" autofocus spellcheck="false">
+            </div>
+        </div>
 
-        <div class="grid-layout">
-            <aside class="side-panel left">
-                <div class="glass-card">
-                    <h2>📚 TERMUX TUTORIAL</h2>
-                    <p>Termux upayogichu hacking thudangan thazhe parayunnavacha cheyyuka:</p>
-                    <ul>
-                        <li><b>Setup:</b> <code>pkg update && pkg upgrade</code></li>
-                        <li><b>Python:</b> <code>pkg install python</code></li>
-                        <li><b>Git:</b> <code>pkg install git</code></li>
-                    </ul>
-                    <p>Malayalam: <i>Ethu oru Linux environment nalkunnu. Commands type cheythu thudangoo!</i></p>
-                </div>
-                <div class="glass-card">
-                    <h2>🤖 BOT MAKING</h2>
-                    <p>WhatsApp/Telegram bots undakkan <b>Node.js</b> athyavashyamaanu.</p>
-                    <p>Commands: <code>pkg install nodejs</code> ennittu ningalude bot folder-il <code>npm start</code> adikkuka.</p>
-                </div>
-            </aside>
-
-            <main class="terminal-container">
-                <div class="terminal-bar">
-                    <span class="btn red"></span><span class="btn yellow"></span><span class="btn green"></span>
-                    <p>interactive_terminal.sh</p>
-                </div>
-                <div id="terminal-body">
-                    <div id="output">SYSTEM BOOT SUCCESSFUL... Type 'help' to see 100+ AI modules.</div>
-                    <div class="input-row">
-                        <span class="prompt">root@sathanic_2030:~$</span>
-                        <input type="text" id="cmd-input" autofocus spellcheck="false">
-                    </div>
-                </div>
-            </main>
-
-            <aside class="side-panel right">
-                <div class="glass-card">
-                    <h2>🏎️ KILL & EARN</h2>
-                    <div class="score-board">COINS: <span id="coin-count">0</span></div>
-                    <canvas id="gameCanvas" width="200" height="300"></canvas>
-                    <button onclick="initGame()" class="neon-btn">BOOT GAME</button>
-                </div>
-                <div class="glass-card">
-                    <h2>🛠️ TOOLS LIST</h2>
-                    <p>- Metasploit<br>- Nmap<br>- SQLmap<br>- Social-Eng-Toolkit</p>
-                </div>
-            </aside>
+        <div id="game-overlay" class="hidden">
+            <div class="game-box">
+                <h3>🏎️ KILL & EARN: RACER</h3>
+                <canvas id="race-canvas" width="300" height="400"></canvas>
+                <p>Press 'ESC' to Exit | SCORE: <span id="game-score">0</span></p>
+            </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
-</body>
-</html>
+    <script src="script.js
