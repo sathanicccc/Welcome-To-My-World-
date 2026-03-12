@@ -1,71 +1,63 @@
 :root {
     --neon-green: #00ff41;
     --neon-blue: #00f3ff;
-    --neon-pink: #ff00ff;
-    --dark-bg: #0a0a0a;
+    --neon-red: #ff003c;
+    --bg-dark: #000;
 }
 
 body {
-    background-color: var(--dark-bg);
-    color: white;
-    font-family: 'Orbitron', sans-serif;
-    margin: 0;
-    overflow-x: hidden;
+    margin: 0; background: var(--bg-dark);
+    color: white; font-family: 'Orbitron', sans-serif;
+    overflow: hidden;
 }
 
-/* Glitch Effect for Title */
-.glitch {
-    font-size: 3.5rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    position: relative;
-    text-shadow: 0.05em 0 0 var(--neon-pink), -0.05em -0.025em 0 var(--neon-blue);
-    animation: glitch 1s infinite;
+#matrixCanvas {
+    position: fixed; top: 0; left: 0; z-index: -1;
 }
 
-@keyframes glitch {
-    0% { transform: skew(0.5deg); }
-    20% { transform: skew(-0.5deg); }
-    100% { transform: skew(0deg); }
+.main-wrapper {
+    display: flex; flex-direction: column; height: 100vh;
 }
 
-.tools-grid {
-    display: flex;
-    gap: 20px;
-    padding: 20px;
-    justify-content: center;
+.cyber-header {
+    background: rgba(0, 20, 0, 0.8);
+    padding: 10px; border-bottom: 2px solid var(--neon-green);
 }
 
-.tool-card {
+.neon-title {
+    text-align: center; font-size: 2rem; color: var(--neon-green);
+    text-shadow: 0 0 10px var(--neon-green);
+}
+
+.grid-layout {
+    display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 20px; padding: 20px;
+}
+
+.glass-card {
     background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
     border: 1px solid var(--neon-blue);
-    padding: 20px;
-    border-radius: 10px;
-    width: 250px;
-    transition: 0.3s;
+    padding: 15px; border-radius: 10px; margin-bottom: 15px;
+    font-size: 0.8rem;
 }
 
-.tool-card:hover {
-    box-shadow: 0 0 20px var(--neon-blue);
-    transform: translateY(-10px);
+.terminal-container {
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid var(--neon-green); border-radius: 5px;
+    height: 75vh; display: flex; flex-direction: column;
 }
 
-.cyber-btn {
-    background: transparent;
-    border: 2px solid var(--neon-green);
-    color: var(--neon-green);
-    padding: 10px 20px;
-    cursor: pointer;
-    font-family: 'Orbitron';
-    margin-top: 10px;
-}
+.terminal-bar { background: #333; padding: 5px 10px; display: flex; gap: 5px; }
+.btn { width: 10px; height: 10px; border-radius: 50%; }
+.red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
 
-/* Game Canvas */
-#raceGame {
-    background: #1a1a1a;
-    border: 2px solid var(--neon-pink);
-    display: block;
-    margin: 0 auto;
-    width: 300px;
-    height: 400px;
+#terminal-body { padding: 10px; overflow-y: auto; flex-grow: 1; font-family: 'Fira Code', monospace; color: var(--neon-green); }
+.input-row { display: flex; gap: 10px; }
+#cmd-input { background: transparent; border: none; color: white; outline: none; width: 100%; font-family: 'Fira Code'; }
+
+.neon-btn {
+    width: 100%; padding: 10px; background: transparent;
+    border: 1px solid var(--neon-red); color: var(--neon-red);
+    cursor: pointer; font-family: 'Orbitron'; transition: 0.3s;
 }
+.neon-btn:hover { background: var(--neon-red); color: white; box-shadow: 0 0 20px var(--neon-red); }
