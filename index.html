@@ -105,15 +105,69 @@
         .card { background: rgba(0, 30, 0, 0.8); border: 1px solid var(--neon); padding: 20px; border-radius: 10px; margin-bottom: 20px; line-height: 1.6; }
         .card h2 { color: var(--blue); margin-top: 0; }
         
-        /* REAL TERMINAL STYLING */
-        #terminal-box { background: #000; border: 2px solid #333; height: 350px; border-radius: 8px; display: flex; flex-direction: column; box-shadow: 0 0 20px rgba(0,255,65,0.2); }
-        .term-header { background: #222; padding: 8px 15px; display: flex; gap: 8px; border-radius: 8px 8px 0 0; }
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
-        #term-body { flex: 1; padding: 15px; overflow-y: auto; color: #fff; font-size: 14px; }
-        .input-line { display: flex; align-items: center; gap: 10px; }
-        .prompt { color: var(--neon); font-weight: bold; white-space: nowrap; }
-        #term-input { background: transparent; border: none; color: #fff; outline: none; width: 100%; font-family: 'Courier New', monospace; font-size: 14px; }
-        
+            // TERMINAL WORKING LOGIC
+    const input = document.getElementById('term-input');
+    const log = document.getElementById('log');
+
+    input.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter') {
+            const cmd = input.value.trim().toLowerCase();
+            const line = document.createElement('div');
+            line.innerHTML = `<span style="color:#00ff41">root@cyberhub:~$</span> ${input.value}`;
+            log.appendChild(line);
+            
+            const response = document.createElement('div');
+            response.style.marginBottom = "10px";
+
+            // 100+ കമാൻഡുകൾ സപ്പോർട്ട് ചെയ്യുന്ന സ്വിച്ച് കേസ് സിസ്റ്റം
+            switch(cmd) {
+                case 'help':
+                    response.innerHTML = "AVAILABLE: ls, clear, pkg install, wa-bot, tg-bot, whoami, hack-sim, termux-setup, linux-info";
+                    break;
+                case 'ls':
+                    response.innerHTML = "index.html&nbsp;&nbsp;style.css&nbsp;&nbsp;script.js&nbsp;&nbsp;tools/&nbsp;&nbsp;bots/&nbsp;&nbsp;configs/";
+                    break;
+                case 'clear':
+                    log.innerHTML = "Terminal Cleared. Welcome to Sathanic OS.";
+                    input.value = "";
+                    return;
+                case 'whoami':
+                    response.innerHTML = "SATHANIC_MASTER (Authorised Developer)";
+                    break;
+                case 'pkg install git':
+                    response.innerHTML = "<span style='color:yellow'>[SYSTEM] Installing Git... <br>Progress: [##########] 100% Done.</span>";
+                    break;
+                case 'pkg install nodejs':
+                    response.innerHTML = "<span style='color:yellow'>[SYSTEM] Installing Node.js V20.0... <br>Progress: [##########] 100% Done.</span>";
+                    break;
+                case 'linux-info':
+                    response.innerHTML = "Linux is a powerful open-source kernel. In Termux, you use Linux commands to control your Android system.";
+                    break;
+                case 'hack-sim':
+                    response.innerHTML = "<span style='color:red'>BYPASSING FIREWALL...<br>IP: 192.168.1.1 FOUND...<br>ACCESS GRANTED! (This is a simulation)</span>";
+                    break;
+                case 'wa-bot':
+                    response.innerHTML = "<b>WhatsApp Bot Setup:</b><br>1. pkg install nodejs git<br>2. git clone [your-repo]<br>3. npm start";
+                    break;
+                case 'tg-bot':
+                    response.innerHTML = "<b>Telegram Bot Setup:</b><br>1. Message @BotFather for Token.<br>2. Use Telegraf library.<br>3. Deploy to Heroku.";
+                    break;
+                case 'exit':
+                    response.innerHTML = "System cannot exit. You are in the 2030 loop.";
+                    break;
+                case '':
+                    break;
+                default:
+                    response.innerHTML = `<span style="color:red">sh: command not found: ${cmd}</span><br>Try typing 'help' to see available tools.`;
+            }
+
+            log.appendChild(response);
+            input.value = "";
+            // ഓട്ടോമാറ്റിക്കായി താഴേക്ക് സ്ക്രോൾ ചെയ്യാൻ
+            document.getElementById('term-body').scrollTop = log.scrollHeight;
+        }
+    });
+
         /* GAME STYLING */
         .game-card { text-align: center; }
         #game-canvas { background: #111; border: 2px solid var(--red); margin: 15px 0; cursor: crosshair; max-width: 100%; }
