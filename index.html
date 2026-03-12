@@ -3,23 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to World</title>
+    <title>Welcome to the Future | 2030 Hub</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <video autoplay muted loop id="bgVideo">
-        <source src="background.mp4" type="video/mp4">
-    </video>
+    <div class="neon-bg"></div>
 
-    <div class="content">
-        <h1 class="welcome-text">Welcome to World</h1>
-        <p class="sub-text">Explore the world with interactive fun!</p>
-        
-        <div id="game-container">
-            <p>Score: <span id="score">0</span></p>
-            <div id="world-emoji" onclick="catchWorld()">🖕</div>
-        </div>
+    <div class="container">
+        <header>
+            <h1 class="glitch" data-text="WELCOME TO WORLD">WELCOME TO WORLD</h1>
+            <p class="cyber-sub">The Ultimate Tech & Gaming Hub</p>
+        </header>
+
+        <section class="tools-grid">
+            <div class="tool-card">
+                <h3>🐧 LINUX & TERMUX</h3>
+                <p>Linux ennathu oru open-source OS aanu. Termux upayogichu ningalkku mobile-il oru hacking lab thanne thudangam.</p>
+            </div>
+            <div class="tool-card">
+                <h3>🤖 BOT MAKING</h3>
+                <p>Node.js athava Python upayogichu WhatsApp/Telegram bots undakkam. Autoply & Management eluppamaakkam!</p>
+            </div>
+        </section>
+
+        <section class="game-area">
+            <h2>🏎️ CYBER RACE: KILL & EARN</h2>
+            <div id="game-canvas-container">
+                <p>Score: <span id="score">0</span></p>
+                <canvas id="raceGame"></canvas>
+            </div>
+            <button onclick="startGame()" class="cyber-btn">START RACE</button>
+        </section>
     </div>
 
     <script src="script.js"></script>
