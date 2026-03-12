@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="ml">
 <head>
     <meta charset="UTF-8">
@@ -109,6 +109,49 @@
             else if(cmd === 'linux') res += "Linux is an OS. Command: <code>apt update</code> to start.";
             else if(cmd === 'wa-bot') res += "Step 1: Get Session. Step 2: Deploy to Heroku.";
             else if(cmd === 'hack') res += "<span style='color:red'>HACKING IN PROGRESS... [FAILED: NO TARGET]</span>";
+            else if(cmd === 'clear') { termOut.innerHTML = ""; termIn.value = ""; return; }
+            else res += "Command Not Found.";
+            termOut.innerHTML += res;
+            termIn.value = "";
+            document.getElementById('terminal').scrollTop = 1000;
+        }
+    });
+
+    // Knife Throw Game Logic
+    const gCanvas = document.getElementById('game-canvas');
+    const gCtx = gCanvas.getContext('2d');
+    let score = 0;
+    let targetX = 50;
+    let targetSpeed = 2;
+
+    function drawGame() {
+        gCtx.clearRect(0,0,300,300);
+        // Draw Human Target
+        gCtx.fillStyle = "white";
+        gCtx.fillRect(targetX, 50, 40, 60); // Head & Body
+        gCtx.fillStyle = "red";
+        gCtx.fillText("TARGET", targetX, 45);
+        
+        targetX += targetSpeed;
+        if(targetX > 260 || targetX < 0) targetSpeed *= -1;
+        requestAnimationFrame(drawGame);
+    }
+    drawGame();
+
+    function shoot() {
+        // Simple logic to check if target is near center when clicked
+        if (targetX > 120 && targetX < 180) {
+            score += 10;
+            alert("🎯 HIT! +10 Points");
+        } else {
+            alert("❌ MISSED!");
+        }
+        document.getElementById('score').innerText = score;
+    }
+</script>
+
+</body>
+</html>
             else if(cmd === 'clear') { termOut.innerHTML = ""; termIn.value = ""; return; }
             else res += "Command Not Found.";
             termOut.innerHTML += res;
