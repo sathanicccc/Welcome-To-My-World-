@@ -86,110 +86,172 @@
 
     function drawMatrix() {
         ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "#0F0";
-        ctx.font = fontSize + "px Courier New";
-        drops.forEach((y, i) => {
-            const text = letters[Math.floor(Math.random() * letters.length)];
-            ctx.fillText(text, i * fontSize, y * fontSize);
-            if (y * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-            drops[i]++;
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SATHANIC 2030 | ADVANCE HUB</title>
+    <style>
+        :root { --neon: #00ff41; --bg: #000; --blue: #00f3ff; --red: #ff003c; }
+        body { background: var(--bg); color: var(--neon); font-family: 'Courier New', monospace; margin: 0; overflow-x: hidden; }
+        #matrix { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.3; }
+        .container { max-width: 1000px; margin: auto; padding: 20px; }
+        .header { text-align: center; border-bottom: 2px solid var(--neon); padding-bottom: 20px; margin-bottom: 30px; }
+        .glitch { font-size: 2.5rem; text-transform: uppercase; letter-spacing: 5px; animation: glitch 1s infinite; }
+        @keyframes glitch { 0% { text-shadow: 2px 0 var(--red); } 50% { text-shadow: -2px 0 var(--blue); } 100% { text-shadow: 2px 0 var(--red); } }
+        
+        /* Tutorial Cards */
+        .card { background: rgba(0, 30, 0, 0.8); border: 1px solid var(--neon); padding: 20px; border-radius: 10px; margin-bottom: 20px; line-height: 1.6; }
+        .card h2 { color: var(--blue); margin-top: 0; }
+        
+        /* REAL TERMINAL STYLING */
+        #terminal-box { background: #000; border: 2px solid #333; height: 350px; border-radius: 8px; display: flex; flex-direction: column; box-shadow: 0 0 20px rgba(0,255,65,0.2); }
+        .term-header { background: #222; padding: 8px 15px; display: flex; gap: 8px; border-radius: 8px 8px 0 0; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        #term-body { flex: 1; padding: 15px; overflow-y: auto; color: #fff; font-size: 14px; }
+        .input-line { display: flex; align-items: center; gap: 10px; }
+        .prompt { color: var(--neon); font-weight: bold; white-space: nowrap; }
+        #term-input { background: transparent; border: none; color: #fff; outline: none; width: 100%; font-family: 'Courier New', monospace; font-size: 14px; }
+        
+        /* GAME STYLING */
+        .game-card { text-align: center; }
+        #game-canvas { background: #111; border: 2px solid var(--red); margin: 15px 0; cursor: crosshair; max-width: 100%; }
+        .btn-throw { background: var(--red); color: #fff; border: none; padding: 12px 30px; font-weight: bold; cursor: pointer; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div class="container">
+    <div class="header">
+        <h1 class="glitch">SATHANIC CYBER HUB 2030</h1>
+        <p>Advanced Practical Learning Lab | Secure V3.0</p>
+    </div>
+
+    <div class="card">
+        <h2>🤖 WHATSAPP BOT (MALAYALAM)</h2>
+        <p>WhatsApp bot undakkan adhyam oru <b>GitHub Repository</b> venam. Athu fork cheythathinu shesham session id edukkanam. Ennittu <b>Heroku</b> athava <b>Koyeb</b> vazhi connect cheythu 24/7 run cheyyaam.</p>
+        <code>Files: index.js, config.js, package.json</code>
+    </div>
+
+    <div class="card">
+        <h2>✈️ TELEGRAM BOT</h2>
+        <p>Telegram-il <b>@BotFather</b> vazhi API Token edukka. Node.js code ezhuthuka. <code>npm install telegraf</code> upayogichu bot ready aakkaam. GitHub-il upload cheythu deploy cheyyaam.</p>
+    </div>
+
+    <div class="card">
+        <h2>🐚 INTERACTIVE TERMUX TERMINAL</h2>
+        <p>Type <code>help</code> to see commands. Try <code>ls</code> or <code>pkg install</code>.</p>
+        <div id="terminal-box">
+            <div class="term-header">
+                <div class="dot" style="background:#ff5f56"></div>
+                <div class="dot" style="background:#ffbd2e"></div>
+                <div class="dot" style="background:#27c93f"></div>
+            </div>
+            <div id="term-body">
+                <div id="log">SATHANIC OS [Version 3.0.12] - (c) 2030 Hub.<br>Welcome back, user. Type 'help' to begin.</div>
+                <div class="input-line">
+                    <span class="prompt">root@cyberhub:~$</span>
+                    <input type="text" id="term-input" autofocus spellcheck="false">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card game-card">
+        <h2>🔪 HUMAN TARGET: KNIFE THROW</h2>
+        <p>Score: <span id="score-val" style="color:var(--red)">0</span></p>
+        <canvas id="game-canvas" width="300" height="300"></canvas><br>
+        <button class="btn-throw" onclick="throwKnife()">THROW KNIFE 🔪</button>
+    </div>
+</div>
+
+<script>
+    // Matrix Background
+    const mCanvas = document.getElementById('matrix');
+    const mCtx = mCanvas.getContext('2d');
+    mCanvas.width = window.innerWidth; mCanvas.height = window.innerHeight;
+    const str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$#@%";
+    const matrixArr = Array(Math.floor(mCanvas.width/20)).fill(0);
+    function runMatrix() {
+        mCtx.fillStyle = "rgba(0,0,0,0.05)"; mCtx.fillRect(0,0,mCanvas.width,mCanvas.height);
+        mCtx.fillStyle = "#0F0"; mCtx.font = "15px monospace";
+        matrixArr.forEach((y, i) => {
+            mCtx.fillText(str[Math.floor(Math.random()*str.length)], i*20, y);
+            if(y > mCanvas.height && Math.random() > 0.98) matrixArr[i] = 0;
+            else matrixArr[i] += 20;
         });
     }
-    setInterval(drawMatrix, 30);
+    setInterval(runMatrix, 50);
 
-    // Terminal Logic
-    const termIn = document.getElementById('term-input');
-    const termOut = document.getElementById('out');
-    termIn.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            const cmd = termIn.value.toLowerCase();
-            let res = "<br>> " + cmd + "<br>";
-            if(cmd === 'help') res += "Commands: linux, wa-bot, tg-bot, hack, clear";
-            else if(cmd === 'linux') res += "Linux is an OS. Command: <code>apt update</code> to start.";
-            else if(cmd === 'wa-bot') res += "Step 1: Get Session. Step 2: Deploy to Heroku.";
-            else if(cmd === 'hack') res += "<span style='color:red'>HACKING IN PROGRESS... [FAILED: NO TARGET]</span>";
-            else if(cmd === 'clear') { termOut.innerHTML = ""; termIn.value = ""; return; }
-            else res += "Command Not Found.";
-            termOut.innerHTML += res;
-            termIn.value = "";
-            document.getElementById('terminal').scrollTop = 1000;
+    // TERMINAL WORKING LOGIC
+    const input = document.getElementById('term-input');
+    const log = document.getElementById('log');
+    input.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter') {
+            const cmd = input.value.trim().toLowerCase();
+            const line = document.createElement('div');
+            line.innerHTML = `<span style="color:#00ff41">root@cyberhub:~$</span> ${input.value}`;
+            log.appendChild(line);
+            
+            const response = document.createElement('div');
+            response.style.marginBottom = "10px";
+
+            if(cmd === 'help') {
+                response.innerHTML = "Available: ls, clear, pkg install, wa-bot, tg-bot, whoami";
+            } else if(cmd === 'ls') {
+                response.innerHTML = "index.html&nbsp;&nbsp;style.css&nbsp;&nbsp;script.js&nbsp;&nbsp;tools/";
+            } else if(cmd === 'clear') {
+                log.innerHTML = "Terminal Cleared.";
+            } else if(cmd.startsWith('pkg install')) {
+                response.innerHTML = "<span style='color:yellow'>[WAIT] Fetching from repository...<br>Progress: [##########] 100% Done.</span>";
+            } else if(cmd === 'wa-bot') {
+                response.innerHTML = "Tutorial: 1. Fork Repo. 2. Pair Code. 3. Deploy to Heroku.";
+            } else if(cmd === 'whoami') {
+                response.innerHTML = "You are authorized user: SATHANIC_MASTER";
+            } else {
+                response.innerHTML = `sh: command not found: ${cmd}`;
+            }
+            log.appendChild(response);
+            input.value = "";
+            document.getElementById('term-body').scrollTop = log.scrollHeight;
         }
     });
 
-    // Knife Throw Game Logic
+    // GAME LOGIC
     const gCanvas = document.getElementById('game-canvas');
     const gCtx = gCanvas.getContext('2d');
-    let score = 0;
-    let targetX = 50;
-    let targetSpeed = 2;
+    let score = 0; let targetX = 0; let targetDir = 2;
 
-    function drawGame() {
+    function gameLoop() {
         gCtx.clearRect(0,0,300,300);
-        // Draw Human Target
+        // Human Target
         gCtx.fillStyle = "white";
-        gCtx.fillRect(targetX, 50, 40, 60); // Head & Body
+        gCtx.fillRect(targetX + 20, 50, 20, 20); // Head
+        gCtx.fillRect(targetX, 75, 60, 80); // Body
         gCtx.fillStyle = "red";
-        gCtx.fillText("TARGET", targetX, 45);
+        gCtx.font = "12px Arial";
+        gCtx.fillText("TARGET", targetX + 10, 40);
         
-        targetX += targetSpeed;
-        if(targetX > 260 || targetX < 0) targetSpeed *= -1;
-        requestAnimationFrame(drawGame);
+        targetX += targetDir;
+        if(targetX > 240 || targetX < 0) targetDir *= -1;
+        requestAnimationFrame(gameLoop);
     }
-    drawGame();
+    gameLoop();
 
-    function shoot() {
-        // Simple logic to check if target is near center when clicked
-        if (targetX > 120 && targetX < 180) {
+    function throwKnife() {
+        if(targetX > 100 && targetX < 180) {
             score += 10;
-            alert("🎯 HIT! +10 Points");
+            document.getElementById('score-val').innerText = score;
+            const msg = document.createElement('div');
+            msg.style.color = "yellow";
+            msg.innerHTML = "[SYSTEM] HIT CONFIRMED! +10 Points";
+            log.appendChild(msg);
         } else {
-            alert("❌ MISSED!");
+            alert("MISSED!");
         }
-        document.getElementById('score').innerText = score;
-    }
-</script>
-
-</body>
-</html>
-            else if(cmd === 'clear') { termOut.innerHTML = ""; termIn.value = ""; return; }
-            else res += "Command Not Found.";
-            termOut.innerHTML += res;
-            termIn.value = "";
-            document.getElementById('terminal').scrollTop = 1000;
-        }
-    });
-
-    // Knife Throw Game Logic
-    const gCanvas = document.getElementById('game-canvas');
-    const gCtx = gCanvas.getContext('2d');
-    let score = 0;
-    let targetX = 50;
-    let targetSpeed = 2;
-
-    function drawGame() {
-        gCtx.clearRect(0,0,300,300);
-        // Draw Human Target
-        gCtx.fillStyle = "white";
-        gCtx.fillRect(targetX, 50, 40, 60); // Head & Body
-        gCtx.fillStyle = "red";
-        gCtx.fillText("TARGET", targetX, 45);
-        
-        targetX += targetSpeed;
-        if(targetX > 260 || targetX < 0) targetSpeed *= -1;
-        requestAnimationFrame(drawGame);
-    }
-    drawGame();
-
-    function shoot() {
-        // Simple logic to check if target is near center when clicked
-        if (targetX > 120 && targetX < 180) {
-            score += 10;
-            alert("🎯 HIT! +10 Points");
-        } else {
-            alert("❌ MISSED!");
-        }
-        document.getElementById('score').innerText = score;
     }
 </script>
 
