@@ -3,40 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SATHANIC_ROOT_ACCESS</title>
-    <link rel="stylesheet" href="style.css">
+    <title>SATHANIC 2030 | CYBER HUB</title>
+    <style>
+        /* Matrix Effect Background */
+        body { background-color: #000; color: #00ff41; font-family: 'Courier New', monospace; margin: 0; overflow-x: hidden; }
+        #matrix { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.3; }
+
+        /* General Styling */
+        .container { max-width: 1000px; margin: auto; padding: 20px; text-align: center; }
+        .glitch-text { font-size: 3rem; color: #00ff41; text-shadow: 2px 2px #ff0000; animation: glitch 1s infinite; }
+        @keyframes glitch { 0% { transform: skew(0deg); } 20% { transform: skew(-2deg); } 100% { transform: skew(0deg); } }
+
+        /* Card System */
+        .card { background: rgba(0, 40, 0, 0.8); border: 2px solid #00ff41; border-radius: 10px; margin: 20px 0; padding: 20px; text-align: left; }
+        .card h2 { color: #ff00ff; border-bottom: 1px solid #00ff41; }
+        code { background: #111; color: #00f3ff; padding: 2px 5px; border-radius: 3px; }
+
+        /* Terminal Simulator */
+        #terminal { background: #000; border: 1px solid #00ff41; height: 300px; overflow-y: auto; padding: 10px; text-align: left; margin: 20px 0; }
+        #term-input { background: transparent; border: none; color: #fff; width: 80%; outline: none; font-size: 1rem; }
+
+        /* Knife Throw Game */
+        #game-canvas { background: #111; border: 2px solid #ff0000; cursor: crosshair; }
+        .btn { background: #00ff41; color: #000; padding: 10px 20px; border: none; font-weight: bold; cursor: pointer; }
+    </style>
 </head>
 <body>
-    <canvas id="matrix-canvas"></canvas>
-    
-    <div class="os-container">
-        <div class="top-bar">
-            <span class="title">SATHANIC OS v9.0.4 - [Root Mode]</span>
-            <span class="clock" id="clock">00:00:00</span>
-        </div>
 
-        <div class="terminal-wrapper">
-            <div id="output">
-                <span class="sys-msg">[SYSTEM] Booting Sathanic OS...</span><br>
-                <span class="sys-msg">[SYSTEM] Bypassing Firewalls... DONE</span><br>
-                <span class="sys-msg">[SYSTEM] Loading Malayalam Hacking Tutorials... DONE</span><br>
-                <br>
-                <span class="welcome-text">WELCOME TO THE UNDERGROUND, USER.</span><br>
-                <span>Type <b style="color:white">'help'</b> to see available tools & tutorials.</span><br>
-            </div>
-            <div class="input-area">
-                <span class="prompt">root@sathanic:~#</span>
-                <input type="text" id="cmd" autofocus spellcheck="false">
-            </div>
-        </div>
+<canvas id="matrix"></canvas>
 
-        <div id="game-overlay" class="hidden">
-            <div class="game-box">
-                <h3>🏎️ KILL & EARN: RACER</h3>
-                <canvas id="race-canvas" width="300" height="400"></canvas>
-                <p>Press 'ESC' to Exit | SCORE: <span id="game-score">0</span></p>
-            </div>
+<div class="container">
+    <h1 class="glitch-text">SATHANIC CYBER HUB</h1>
+    <p>Welcome to the 2030 Advance Tech Portal</p>
+
+    <div class="card">
+        <h2>🤖 WHATSAPP BOT UNDAKKAM</h2>
+        <p><b>Explanation:</b> GitHub-il ulla bot repository clone cheythu 24/7 work akki deploy cheyyanam. <br>
+        <b>Files:</b> <code>main.js</code>, <code>session/</code>, <code>config.js</code> ennivayaanu pradhana files.<br>
+        <b>Step-by-Step:</b><br>
+        1. Fork the Bot Repo on GitHub.<br>
+        2. Pair Code vazhi WhatsApp scan cheythu Session ID edukka.<br>
+        3. <b>Deploy:</b> GitHub repo-ne <b>Heroku</b> athava <b>Koyeb</b> ennee platforms-il connect cheyyuka.<br>
+        4. Environment Variables (Vars) set cheythaal bot online aakum.</p>
+    </div>
+
+    <div class="card">
+        <h2>✈️ TELEGRAM BOT UNDAKKAM</h2>
+        <p><b>Explanation:</b> Telegram API upayogichu valare eluppam bots undakkam. <br>
+        <b>Steps:</b><br>
+        1. <b>BotFather:</b> Telegram-il poyi BotFather-il ninnu <code>API TOKEN</code> edukka.<br>
+        2. <b>Code:</b> Node.js (Telegraf library) upayogichu script ezhuthuka.<br>
+        3. GitHub-il upload cheythu Heroku-il deploy cheyyaam.</p>
+    </div>
+
+    <div class="card">
+        <h2>🐚 CYBER TERMINAL (PRACTICE)</h2>
+        <p>Type commands like <code>help</code>, <code>linux</code>, <code>wa-bot</code> to learn.</p>
+        <div id="terminal">
+            <div id="out">SATHANIC OS V3... [READY]</div>
+            <span>root@2030_lab:~$ </span><input type="text" id="term-input" autofocus>
         </div>
     </div>
 
-    <script src="script.js
+    <div class="card">
+        <h2>🔪 KNIFE THROW GAME (FUN)</h2>
+        <p>Target-ilekk kathi eriyuka! Score: <span id="score">0</span></p>
+        <canvas id="game-canvas" width="300" height="300"></canvas><br><br>
+        <button class="btn" onclick="shoot()">THROW KNIFE</button>
+    </div>
+</div>
+
+<script>
+    // Matrix Effect
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    function drawMatrix() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#0F0";
+        ctx.font = fontSize + "px Courier New";
+        drops.forEach((y, i) => {
+            const text = letters[Math.floor(Math.random() * letters.length)];
+            ctx.fillText(text, i * fontSize, y * fontSize);
+            if (y * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
+        });
+    }
+    setInterval(drawMatrix, 30);
+
+    // Terminal Logic
+    const termIn = document.getElementById('term-input');
+    const termOut = document.getElementById('out');
+    termIn.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            const cmd = termIn.value.toLowerCase();
+            let res = "<br>> " + cmd + "<br>";
+            if(cmd === 'help') res += "Commands: linux, wa-bot, tg-bot, hack, clear";
+            else if(cmd === 'linux') res += "Linux is an OS. Command: <code>apt update</code> to start.";
+            else if(cmd === 'wa-bot') res += "Step 1: Get Session. Step 2: Deploy to Heroku.";
+            else if(cmd === 'hack') res += "<span style='color:red'>HACKING IN PROGRESS... [FAILED: NO TARGET]</span>";
+            else if(cmd === 'clear') { termOut.innerHTML = ""; termIn.value = ""; return; }
+            else res += "Command Not Found.";
+            termOut.innerHTML += res;
+            termIn.value = "";
+            document.getElementById('terminal').scrollTop = 1000;
+        }
+    });
+
+    // Knife Throw Game Logic
+    const gCanvas = document.getElementById('game-canvas');
+    const gCtx = gCanvas.getContext('2d');
+    let score = 0;
+    let targetX = 50;
+    let targetSpeed = 2;
+
+    function drawGame() {
+        gCtx.clearRect(0,0,300,300);
+        // Draw Human Target
+        gCtx.fillStyle = "white";
+        gCtx.fillRect(targetX, 50, 40, 60); // Head & Body
+        gCtx.fillStyle = "red";
+        gCtx.fillText("TARGET", targetX, 45);
+        
+        targetX += targetSpeed;
+        if(targetX > 260 || targetX < 0) targetSpeed *= -1;
+        requestAnimationFrame(drawGame);
+    }
+    drawGame();
+
+    function shoot() {
+        // Simple logic to check if target is near center when clicked
+        if (targetX > 120 && targetX < 180) {
+            score += 10;
+            alert("🎯 HIT! +10 Points");
+        } else {
+            alert("❌ MISSED!");
+        }
+        document.getElementById('score').innerText = score;
+    }
+</script>
+
+</body>
+</html>
