@@ -1,0 +1,12 @@
+:root { --green: #00ff41; --bg: #000; --blue: #00f3ff; }
+body { background: #000; color: var(--green); font-family: 'Courier New', monospace; margin: 0; overflow-x: hidden; }
+#matrixCanvas { position: fixed; top: 0; z-index: -1; opacity: 0.4; }
+.main-ui { padding: 20px; text-align: center; }
+.glitch { font-size: 3rem; text-shadow: 2px 0 #ff003c; animation: pulse 2s infinite; }
+.grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
+.nav-card { border: 1px solid var(--green); padding: 15px; text-decoration: none; color: var(--green); transition: 0.3s; background: rgba(0, 20, 0, 0.8); }
+.nav-card:hover { background: var(--green); color: #000; box-shadow: 0 0 20px var(--green); }
+.terminal-window { background: #000; border: 1px solid var(--blue); height: 250px; text-align: left; padding: 10px; display: flex; flex-direction: column; }
+#term-out { flex: 1; overflow-y: auto; color: #fff; font-size: 14px; }
+.in-row { display: flex; gap: 10px; }
+#cmdInput { background: transparent; border: none; color: white; outline: none; width: 100%; }
