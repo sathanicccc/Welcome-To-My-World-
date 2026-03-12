@@ -21,7 +21,55 @@
 ​അവിടെ Add Variable കൊടുത്ത് പേര് BOT_TOKEN എന്നും വാല്യൂ ആയി BotFather തന്ന Token ഉം നൽകുക.
 ​ഡിപ്ലോയ്മെന്റ്: നിങ്ങൾ വേരിയബിൾ സേവ് ചെയ്യുന്നതോടെ റെയിൽവേ തനിയെ നിങ്ങളുടെ ബോട്ട് ഇൻസ്റ്റാൾ ചെയ്ത് റൺ ചെയ്യാൻ തുടങ്ങും.
 ​3. ബോട്ട് പ്രവർത്തിക്കുന്നുണ്ടോ എന്ന് എങ്ങനെ അറിയാം?
-​റെയിൽവേ ഡാഷ്‌ബോർഡിൽ 'Logs' എന്നൊരു ഭാഗം കാണാം. അവിടെ 'Build successful' എന്നും 'Application started' എന്നും വന്നാൽ നിങ്ങളുടെ ബോട്ട് റെഡിയായി കഴിഞ്ഞു. ഇനി ടെലിഗ്രാമിൽ പോയി ബോട്ടിനോട് /start എന്ന് ചോദിച്ചു നോക്കാം.</p>
+​റെയിൽവേ ഡാഷ്‌ബോർഡിൽ 'Logs' എന്നൊരു ഭാഗം കാണാം. അവിടെ 'Build successful' എന്നും 'Application started' എന്നും വന്നാൽ നിങ്ങളുടെ ബോട്ട് റെഡിയായി കഴിഞ്ഞു. ഇനി ടെലിഗ്രാമിൽ പോയി ബോട്ടിനോട് /start എന്ന് ചോദിച്ചു നോക്കാം.
+     
+     ഫയൽ 1: bot.py
+​ഇതാണ് ബോട്ടിന്റെ പ്രധാന കോഡ്.
+        
+      import os
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    # നിങ്ങളുടെ GitHub HTML പേജിന്റെ ലിങ്ക് താഴെ നൽകുക
+    web_app_url = "https://yourusername.github.io/your-repo-name/"
+    
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("Open Web App", web_app=WebAppInfo(url=web_app_url))]
+    ])
+    await update.message.reply_text("ഹലോ! വെബ് ആപ്പ് തുറക്കാൻ താഴെ ക്ലിക്ക് ചെയ്യുക:", reply_markup=keyboard)
+
+if __name__ == '__main__':
+    # റെയിൽവേയിൽ നൽകുന്ന ടോക്കൺ ഇവിടെ റീഡ് ചെയ്യും
+    token = os.environ.get("BOT_TOKEN")
+    app = ApplicationBuilder().token(token).build()
+    app.add_handler(CommandHandler("start", start))
+    app.run_polling()
+
+      ഫയൽ 2: requirements.txt
+​റെയിൽവേയ്ക്ക് ഏതൊക്കെ ലൈബ്രറി ഇൻസ്റ്റാൾ ചെയ്യണം എന്ന് പറഞ്ഞു കൊടുക്കാൻ താഴെ കാണുന്ന വരി മാത്രം ഇതിൽ എഴുതുക.
+        
+      python-telegram-bot
+
+   ഫയൽ 3: Procfile
+​ഇതിന് .txt എന്നോ മറ്റോ വിപുലീകരണം (Extension) പാടില്ല. വെറും Procfile എന്ന് തന്നെ പേര് നൽകണം. ഇതിനുള്ളിൽ താഴെ കാണുന്ന വരി എഴുതുക:
+        
+     worker: python bot.py
+
+     2. റെയിൽവേയിൽ (Railway) ഡിപ്ലോയ് ചെയ്യുന്ന വിധം
+​ഫയലുകൾ ഗിറ്റ്‌ഹബ്ബിൽ റെഡിയായാൽ ഇനി റെയിൽവേയിൽ പോകാം:
+​Railway.app വെബ്സൈറ്റിൽ കയറി ലോഗിൻ ചെയ്യുക.
+​+ New Project ക്ലിക്ക് ചെയ്യുക.
+​Deploy from GitHub repo എന്നത് തിരഞ്ഞെടുത്ത് നിങ്ങളുടെ ബോട്ട് ഉള്ള റിപ്പോസിറ്ററി സെലക്ട് ചെയ്യുക.
+​ഇപ്പോൾ റെയിൽവേ ആ പ്രോജക്ട് ലോഡ് ചെയ്യും. അവിടെ Variables എന്ന ടാബിൽ ക്ലിക്ക് ചെയ്യുക.
+​Add Variable ബട്ടൺ അമർത്തി താഴെ പറയുന്നവ നൽകുക:
+​Variable Name: BOT_TOKEN
+​Value: (BotFather തന്ന നിങ്ങളുടെ API Token ഇവിടെ പേസ്റ്റ് ചെയ്യുക).
+​ഇത് സേവ് ചെയ്യുന്നതോടെ റെയിൽവേ ഓട്ടോമാറ്റിക്കായി ബോട്ട് ഡിപ്ലോയ് ചെയ്യാൻ തുടങ്ങും.
+​3. ഇത് എങ്ങനെ വർക്ക് ചെയ്യുന്നു?
+​നിങ്ങൾ ബോട്ടിന് മെസേജ് അയക്കുമ്പോൾ റെയിൽവേയിലുള്ള bot.py അത് സ്വീകരിക്കുന്നു.
+​അത് ഉടനെ തന്നെ ഗിറ്റ്‌ഹബ്ബിൽ ഹോസ്റ്റ് ചെയ്തിരിക്കുന്ന HTML ലിങ്ക് ഒരു ബട്ടണായി തിരിച്ച് അയക്കുന്നു.
+​യൂസർ ആ ബട്ടണിൽ ക്ലിക്ക് ചെയ്യുമ്പോൾ ടെലിഗ്രാമിനുള്ളിൽ തന്നെ നിങ്ങളുടെ HTML പേജ് തുറന്നു വരുന്നു.   </p>
     </div>
     <a href="index.html" class="nav-card">GO BACK</a>
 </div>
