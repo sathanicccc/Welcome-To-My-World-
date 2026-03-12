@@ -1,313 +1,33 @@
-<<!DOCTYPE html>
-<html lang="ml">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SATHANIC 2030 | CYBER HUB</title>
-    <style>
-        /* Matrix Effect Background */
-        body { background-color: #000; color: #00ff41; font-family: 'Courier New', monospace; margin: 0; overflow-x: hidden; }
-        #matrix { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.3; }
-
-        /* General Styling */
-        .container { max-width: 1000px; margin: auto; padding: 20px; text-align: center; }
-        .glitch-text { font-size: 3rem; color: #00ff41; text-shadow: 2px 2px #ff0000; animation: glitch 1s infinite; }
-        @keyframes glitch { 0% { transform: skew(0deg); } 20% { transform: skew(-2deg); } 100% { transform: skew(0deg); } }
-
-        /* Card System */
-        .card { background: rgba(0, 40, 0, 0.8); border: 2px solid #00ff41; border-radius: 10px; margin: 20px 0; padding: 20px; text-align: left; }
-        .card h2 { color: #ff00ff; border-bottom: 1px solid #00ff41; }
-        code { background: #111; color: #00f3ff; padding: 2px 5px; border-radius: 3px; }
-
-        /* Terminal Simulator */
-        #terminal { background: #000; border: 1px solid #00ff41; height: 300px; overflow-y: auto; padding: 10px; text-align: left; margin: 20px 0; }
-        #term-input { background: transparent; border: none; color: #fff; width: 80%; outline: none; font-size: 1rem; }
-
-        /* Knife Throw Game */
-        #game-canvas { background: #111; border: 2px solid #ff0000; cursor: crosshair; }
-        .btn { background: #00ff41; color: #000; padding: 10px 20px; border: none; font-weight: bold; cursor: pointer; }
-    </style>
-</head>
-<body>
-
-<canvas id="matrix"></canvas>
-
-<div class="container">
-    <h1 class="glitch-text">SATHANIC CYBER HUB</h1>
-    <p>Welcome to the 2030 Advance Tech Portal</p>
-
-    <div class="card">
-        <h2>🤖 WHATSAPP BOT UNDAKKAM</h2>
-        <p><b>Explanation:</b> GitHub-il ulla bot repository clone cheythu 24/7 work akki deploy cheyyanam. <br>
-        <b>Files:</b> <code>main.js</code>, <code>session/</code>, <code>config.js</code> ennivayaanu pradhana files.<br>
-        <b>Step-by-Step:</b><br>
-        1. Fork the Bot Repo on GitHub.<br>
-        2. Pair Code vazhi WhatsApp scan cheythu Session ID edukka.<br>
-        3. <b>Deploy:</b> GitHub repo-ne <b>Heroku</b> athava <b>Koyeb</b> ennee platforms-il connect cheyyuka.<br>
-        4. Environment Variables (Vars) set cheythaal bot online aakum.</p>
-    </div>
-
-    <div class="card">
-        <h2>✈️ TELEGRAM BOT UNDAKKAM</h2>
-        <p><b>Explanation:</b> Telegram API upayogichu valare eluppam bots undakkam. <br>
-        <b>Steps:</b><br>
-        1. <b>BotFather:</b> Telegram-il poyi BotFather-il ninnu <code>API TOKEN</code> edukka.<br>
-        2. <b>Code:</b> Node.js (Telegraf library) upayogichu script ezhuthuka.<br>
-        3. GitHub-il upload cheythu Heroku-il deploy cheyyaam.</p>
-    </div>
-
-    <div class="card">
-        <h2>🐚 CYBER TERMINAL (PRACTICE)</h2>
-        <p>Type commands like <code>help</code>, <code>linux</code>, <code>wa-bot</code> to learn.</p>
-        <div id="terminal">
-            <div id="out">SATHANIC OS V3... [READY]</div>
-            <span>root@2030_lab:~$ </span><input type="text" id="term-input" autofocus>
-        </div>
-    </div>
-
-    <div class="card">
-        <h2>🔪 KNIFE THROW GAME (FUN)</h2>
-        <p>Target-ilekk kathi eriyuka! Score: <span id="score">0</span></p>
-        <canvas id="game-canvas" width="300" height="300"></canvas><br><br>
-        <button class="btn" onclick="shoot()">THROW KNIFE</button>
-    </div>
-</div>
-
-<script>
-    // Matrix Effect
-    const canvas = document.getElementById('matrix');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    const fontSize = 16;
-    const columns = canvas.width / fontSize;
-    const drops = Array(Math.floor(columns)).fill(1);
-
-    function drawMatrix() {
-        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
 <!DOCTYPE html>
 <html lang="ml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SATHANIC 2030 | ADVANCE HUB</title>
-    <style>
-        :root { --neon: #00ff41; --bg: #000; --blue: #00f3ff; --red: #ff003c; }
-        body { background: var(--bg); color: var(--neon); font-family: 'Courier New', monospace; margin: 0; overflow-x: hidden; }
-        #matrix { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.3; }
-        .container { max-width: 1000px; margin: auto; padding: 20px; }
-        .header { text-align: center; border-bottom: 2px solid var(--neon); padding-bottom: 20px; margin-bottom: 30px; }
-        .glitch { font-size: 2.5rem; text-transform: uppercase; letter-spacing: 5px; animation: glitch 1s infinite; }
-        @keyframes glitch { 0% { text-shadow: 2px 0 var(--red); } 50% { text-shadow: -2px 0 var(--blue); } 100% { text-shadow: 2px 0 var(--red); } }
-        
-        /* Tutorial Cards */
-        .card { background: rgba(0, 30, 0, 0.8); border: 1px solid var(--neon); padding: 20px; border-radius: 10px; margin-bottom: 20px; line-height: 1.6; }
-        .card h2 { color: var(--blue); margin-top: 0; }
-        
-            // TERMINAL WORKING LOGIC
-    const input = document.getElementById('term-input');
-    const log = document.getElementById('log');
-
-    input.addEventListener('keydown', (e) => {
-        if(e.key === 'Enter') {
-            const cmd = input.value.trim().toLowerCase();
-            const line = document.createElement('div');
-            line.innerHTML = `<span style="color:#00ff41">root@cyberhub:~$</span> ${input.value}`;
-            log.appendChild(line);
-            
-            const response = document.createElement('div');
-            response.style.marginBottom = "10px";
-
-            // 100+ കമാൻഡുകൾ സപ്പോർട്ട് ചെയ്യുന്ന സ്വിച്ച് കേസ് സിസ്റ്റം
-            switch(cmd) {
-                case 'help':
-                    response.innerHTML = "AVAILABLE: ls, clear, pkg install, wa-bot, tg-bot, whoami, hack-sim, termux-setup, linux-info";
-                    break;
-                case 'ls':
-                    response.innerHTML = "index.html&nbsp;&nbsp;style.css&nbsp;&nbsp;script.js&nbsp;&nbsp;tools/&nbsp;&nbsp;bots/&nbsp;&nbsp;configs/";
-                    break;
-                case 'clear':
-                    log.innerHTML = "Terminal Cleared. Welcome to Sathanic OS.";
-                    input.value = "";
-                    return;
-                case 'whoami':
-                    response.innerHTML = "SATHANIC_MASTER (Authorised Developer)";
-                    break;
-                case 'pkg install git':
-                    response.innerHTML = "<span style='color:yellow'>[SYSTEM] Installing Git... <br>Progress: [##########] 100% Done.</span>";
-                    break;
-                case 'pkg install nodejs':
-                    response.innerHTML = "<span style='color:yellow'>[SYSTEM] Installing Node.js V20.0... <br>Progress: [##########] 100% Done.</span>";
-                    break;
-                case 'linux-info':
-                    response.innerHTML = "Linux is a powerful open-source kernel. In Termux, you use Linux commands to control your Android system.";
-                    break;
-                case 'hack-sim':
-                    response.innerHTML = "<span style='color:red'>BYPASSING FIREWALL...<br>IP: 192.168.1.1 FOUND...<br>ACCESS GRANTED! (This is a simulation)</span>";
-                    break;
-                case 'wa-bot':
-                    response.innerHTML = "<b>WhatsApp Bot Setup:</b><br>1. pkg install nodejs git<br>2. git clone [your-repo]<br>3. npm start";
-                    break;
-                case 'tg-bot':
-                    response.innerHTML = "<b>Telegram Bot Setup:</b><br>1. Message @BotFather for Token.<br>2. Use Telegraf library.<br>3. Deploy to Heroku.";
-                    break;
-                case 'exit':
-                    response.innerHTML = "System cannot exit. You are in the 2030 loop.";
-                    break;
-                case '':
-                    break;
-                default:
-                    response.innerHTML = `<span style="color:red">sh: command not found: ${cmd}</span><br>Try typing 'help' to see available tools.`;
-            }
-
-            log.appendChild(response);
-            input.value = "";
-            // ഓട്ടോമാറ്റിക്കായി താഴേക്ക് സ്ക്രോൾ ചെയ്യാൻ
-            document.getElementById('term-body').scrollTop = log.scrollHeight;
-        }
-    });
-
-        /* GAME STYLING */
-        .game-card { text-align: center; }
-        #game-canvas { background: #111; border: 2px solid var(--red); margin: 15px 0; cursor: crosshair; max-width: 100%; }
-        .btn-throw { background: var(--red); color: #fff; border: none; padding: 12px 30px; font-weight: bold; cursor: pointer; border-radius: 5px; }
-    </style>
+    <title>SATHANIC OS V1 | HUB</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <canvas id="matrixCanvas"></canvas>
+    <div class="main-ui">
+        <header class="banner">
+            <h1 class="glitch" data-text="SATHANIC OS V1">SATHANIC OS V1</h1>
+            <div class="news">>>> SYSTEM READY... BEGGINER'S HACKING LAB ONLINE... LEARN BOT MAKING... <<<</div>
+        </header>
 
-<canvas id="matrix"></canvas>
+        <div class="grid-container">
+            <a href="wa-bot.html" class="nav-card">🤖 WHATSAPP BOT</a>
+            <a href="tg-bot.html" class="nav-card">✈️ TELEGRAM BOT</a>
+            <a href="termux.html" class="nav-card">🐧 TERMUX / LINUX</a>
+            <a href="tools.html" class="nav-card">🛠️ ADVANCE TOOLS</a>
+        </div>
 
-<div class="container">
-    <div class="header">
-        <h1 class="glitch">SATHANIC CYBER HUB 2030</h1>
-        <p>Advanced Practical Learning Lab | Secure V3.0</p>
-    </div>
-
-    <div class="card">
-        <h2>🤖 WHATSAPP BOT (MALAYALAM)</h2>
-        <p>WhatsApp bot undakkan adhyam oru <b>GitHub Repository</b> venam. Athu fork cheythathinu shesham session id edukkanam. Ennittu <b>Heroku</b> athava <b>Koyeb</b> vazhi connect cheythu 24/7 run cheyyaam.</p>
-        <code>Files: index.js, config.js, package.json</code>
-    </div>
-
-    <div class="card">
-        <h2>✈️ TELEGRAM BOT</h2>
-        <p>Telegram-il <b>@BotFather</b> vazhi API Token edukka. Node.js code ezhuthuka. <code>npm install telegraf</code> upayogichu bot ready aakkaam. GitHub-il upload cheythu deploy cheyyaam.</p>
-    </div>
-
-    <div class="card">
-        <h2>🐚 INTERACTIVE TERMUX TERMINAL</h2>
-        <p>Type <code>help</code> to see commands. Try <code>ls</code> or <code>pkg install</code>.</p>
-        <div id="terminal-box">
-            <div class="term-header">
-                <div class="dot" style="background:#ff5f56"></div>
-                <div class="dot" style="background:#ffbd2e"></div>
-                <div class="dot" style="background:#27c93f"></div>
-            </div>
-            <div id="term-body">
-                <div id="log">SATHANIC OS [Version 3.0.12] - (c) 2030 Hub.<br>Welcome back, user. Type 'help' to begin.</div>
-                <div class="input-line">
-                    <span class="prompt">root@cyberhub:~$</span>
-                    <input type="text" id="term-input" autofocus spellcheck="false">
-                </div>
-            </div>
+        <div class="terminal-window">
+            <div class="term-head">sathanic@localhost: ~</div>
+            <div id="term-out">Welcome to the Hub. Type 'help' to start learning.</div>
+            <div class="in-row"><span>$</span><input type="text" id="cmdInput" autofocus spellcheck="false"></div>
         </div>
     </div>
-
-    <div class="card game-card">
-        <h2>🔪 HUMAN TARGET: KNIFE THROW</h2>
-        <p>Score: <span id="score-val" style="color:var(--red)">0</span></p>
-        <canvas id="game-canvas" width="300" height="300"></canvas><br>
-        <button class="btn-throw" onclick="throwKnife()">THROW KNIFE 🔪</button>
-    </div>
-</div>
-
-<script>
-    // Matrix Background
-    const mCanvas = document.getElementById('matrix');
-    const mCtx = mCanvas.getContext('2d');
-    mCanvas.width = window.innerWidth; mCanvas.height = window.innerHeight;
-    const str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$#@%";
-    const matrixArr = Array(Math.floor(mCanvas.width/20)).fill(0);
-    function runMatrix() {
-        mCtx.fillStyle = "rgba(0,0,0,0.05)"; mCtx.fillRect(0,0,mCanvas.width,mCanvas.height);
-        mCtx.fillStyle = "#0F0"; mCtx.font = "15px monospace";
-        matrixArr.forEach((y, i) => {
-            mCtx.fillText(str[Math.floor(Math.random()*str.length)], i*20, y);
-            if(y > mCanvas.height && Math.random() > 0.98) matrixArr[i] = 0;
-            else matrixArr[i] += 20;
-        });
-    }
-    setInterval(runMatrix, 50);
-
-    // TERMINAL WORKING LOGIC
-    const input = document.getElementById('term-input');
-    const log = document.getElementById('log');
-    input.addEventListener('keydown', (e) => {
-        if(e.key === 'Enter') {
-            const cmd = input.value.trim().toLowerCase();
-            const line = document.createElement('div');
-            line.innerHTML = `<span style="color:#00ff41">root@cyberhub:~$</span> ${input.value}`;
-            log.appendChild(line);
-            
-            const response = document.createElement('div');
-            response.style.marginBottom = "10px";
-
-            if(cmd === 'help') {
-                response.innerHTML = "Available: ls, clear, pkg install, wa-bot, tg-bot, whoami";
-            } else if(cmd === 'ls') {
-                response.innerHTML = "index.html&nbsp;&nbsp;style.css&nbsp;&nbsp;script.js&nbsp;&nbsp;tools/";
-            } else if(cmd === 'clear') {
-                log.innerHTML = "Terminal Cleared.";
-            } else if(cmd.startsWith('pkg install')) {
-                response.innerHTML = "<span style='color:yellow'>[WAIT] Fetching from repository...<br>Progress: [##########] 100% Done.</span>";
-            } else if(cmd === 'wa-bot') {
-                response.innerHTML = "Tutorial: 1. Fork Repo. 2. Pair Code. 3. Deploy to Heroku.";
-            } else if(cmd === 'whoami') {
-                response.innerHTML = "You are authorized user: SATHANIC_MASTER";
-            } else {
-                response.innerHTML = `sh: command not found: ${cmd}`;
-            }
-            log.appendChild(response);
-            input.value = "";
-            document.getElementById('term-body').scrollTop = log.scrollHeight;
-        }
-    });
-
-    // GAME LOGIC
-    const gCanvas = document.getElementById('game-canvas');
-    const gCtx = gCanvas.getContext('2d');
-    let score = 0; let targetX = 0; let targetDir = 2;
-
-    function gameLoop() {
-        gCtx.clearRect(0,0,300,300);
-        // Human Target
-        gCtx.fillStyle = "white";
-        gCtx.fillRect(targetX + 20, 50, 20, 20); // Head
-        gCtx.fillRect(targetX, 75, 60, 80); // Body
-        gCtx.fillStyle = "red";
-        gCtx.font = "12px Arial";
-        gCtx.fillText("TARGET", targetX + 10, 40);
-        
-        targetX += targetDir;
-        if(targetX > 240 || targetX < 0) targetDir *= -1;
-        requestAnimationFrame(gameLoop);
-    }
-    gameLoop();
-
-    function throwKnife() {
-        if(targetX > 100 && targetX < 180) {
-            score += 10;
-            document.getElementById('score-val').innerText = score;
-            const msg = document.createElement('div');
-            msg.style.color = "yellow";
-            msg.innerHTML = "[SYSTEM] HIT CONFIRMED! +10 Points";
-            log.appendChild(msg);
-        } else {
-            alert("MISSED!");
-        }
-    }
-</script>
-
+    <script src="matrix.js"></script>
+    <script src="terminal.js"></script>
 </body>
 </html>
