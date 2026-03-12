@@ -1,57 +1,71 @@
-/* Full screen video background */
-#bgVideo {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    min-width: 100%;
-    min-height: 100%;
-    z-index: -1;
-    object-fit: cover;
+:root {
+    --neon-green: #00ff41;
+    --neon-blue: #00f3ff;
+    --neon-pink: #ff00ff;
+    --dark-bg: #0a0a0a;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--dark-bg);
     color: white;
-    text-align: center;
-    overflow: hidden; /* Game emoji purathu pokathirikan */
+    font-family: 'Orbitron', sans-serif;
+    margin: 0;
+    overflow-x: hidden;
 }
 
-.content {
-    background: rgba(0, 0, 0, 0.4); /* Video clear aayi kaanan oru dark overlay */
-    height: 100vh;
+/* Glitch Effect for Title */
+.glitch {
+    font-size: 3.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    position: relative;
+    text-shadow: 0.05em 0 0 var(--neon-pink), -0.05em -0.025em 0 var(--neon-blue);
+    animation: glitch 1s infinite;
+}
+
+@keyframes glitch {
+    0% { transform: skew(0.5deg); }
+    20% { transform: skew(-0.5deg); }
+    100% { transform: skew(0deg); }
+}
+
+.tools-grid {
     display: flex;
-    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
     justify-content: center;
-    align-items: center;
 }
 
-/* Animated Text */
-.welcome-text {
-    font-size: 4rem;
-    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-    animation: float 3s ease-in-out infinite;
+.tool-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--neon-blue);
+    padding: 20px;
+    border-radius: 10px;
+    width: 250px;
+    transition: 0.3s;
 }
 
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
+.tool-card:hover {
+    box-shadow: 0 0 20px var(--neon-blue);
+    transform: translateY(-10px);
 }
 
-/* Game Styles */
-#game-container {
-    margin-top: 20px;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 10px 30px;
-    border-radius: 50px;
-    backdrop-filter: blur(5px);
-}
-
-#world-emoji {
-    font-size: 60px;
+.cyber-btn {
+    background: transparent;
+    border: 2px solid var(--neon-green);
+    color: var(--neon-green);
+    padding: 10px 20px;
     cursor: pointer;
-    position: absolute; /* JavaScript vazhi move cheyyan */
-    transition: all 0.3s ease;
-    user-select: none;
+    font-family: 'Orbitron';
+    margin-top: 10px;
+}
+
+/* Game Canvas */
+#raceGame {
+    background: #1a1a1a;
+    border: 2px solid var(--neon-pink);
+    display: block;
+    margin: 0 auto;
+    width: 300px;
+    height: 400px;
 }
